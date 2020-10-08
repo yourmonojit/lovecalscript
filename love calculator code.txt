@@ -1,0 +1,218 @@
+<html>
+ <head>
+   <h1> Love Calculator 2020</h1>
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+@import url(https://fonts.googleapis.com/css?family=Bungee+Shade);
+@import url(https://fonts.googleapis.com/css?family=Bungee);
+h1 {
+  background-color: #05ffb0;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: 3em;
+  text-shadow: 2px 2px 3px rgba(0,0,0,.3);
+  font-family: 'Bungee Shade';
+}
+body {
+  background-color: #ffaaf9;
+}
+.heart {
+  top: 40px;
+  position: relative;
+  background-color: red;
+  height: 60px;
+  transform: rotate(-45deg);
+  width: 60px;
+}
+.heart:before,
+.heart:after {
+  content: "";
+  background-color: red;
+  border-radius: 50%;
+  height: 60px;
+  position: absolute;
+  width: 60px;
+}
+.heart:after {
+  left: 30px;
+  top: 0;
+}
+.heart:before {
+  top: -30px;
+  left: 0;
+}
+.center{
+  margin:auto;
+}
+
+div.person{
+  background-color: #ff007b;
+  height: 200px;
+  width: 150px;
+}
+#card1{
+  position: absolute;
+  left: 0px;
+}
+#card2{
+  position: absolute;
+  right: 0px;
+}
+div.persons{
+  margin: auto;
+  position: relative;
+  height: 200px;
+  width: 500px;
+}
+.name{
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  font-family: Arial;
+}
+input[type=text] {
+  width: 89%;
+  padding: 10px 10px;
+  margin: 8px;
+  box-sizing: border-box;
+}
+
+.nameLabel{
+  color: white;
+  font-family: Arial sans-serif normal;
+  margin-left: 10px;
+}
+.setButton {
+  background-color: #ffaaf9;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0 48px;
+  cursor: pointer;
+}
+#compute {
+  position: relative;
+  background-color: #ff007b;
+  display: block;
+  margin: auto;
+  border: none;
+  color: white;
+  font-family: 'Bungee';
+  font-size: 20px;
+  border-radius: 15px;
+  top: 100px;
+  cursor: pointer;
+}
+#compute:focus {
+  background-color: white;
+  color: #ff007b;
+  outline: none;
+}
+#resultLabel{
+  position: relative;
+  margin: auto;
+  left: 213px;
+  top: -86px;
+  font-family: 'Indie Flower';
+  font-size: 50px;
+  font-weight: bold;
+}
+#resultLabel.animated::after{
+  content:"";
+  animation-name: calculating;
+  animation-duration: 3s;
+}
+@keyframes calculating {
+  0%  {content: "74%";}
+  5%  {content: "28%";}
+  10% {content: "54%";}
+  15% {content: "17%";}
+  20% {content: "44%";}
+  25% {content: "5%";}
+  30% {content: "87%";}
+  35% {content: "100%";}
+  40% {content: "66%";}
+  50% {content: "89%"}
+  60% {content: "22%";}
+  70% {content: "32%";}
+  85% {content: "80%";}
+  100%{content: "35%";}
+}
+</style>
+</html>
+<body> 
+   <div class="heart center"></div>
+   <div class="persons">
+      <div class="person" id="card1">
+        <p class="name" id="person1">Obama</p>
+        <form>
+          <label for="fname" class="nameLabel">Enter name:</label>
+          <input type="text" id="nameInput1"/>
+        </form>
+        <button onClick="update1()" class="setButton" id="b1">SET</button>
+      </div>
+      <div class="person" id="card2">
+        <p class="name" id="person2">Biden</p>
+        <form>
+          <label for="fname" class="nameLabel">Enter name:</label>
+          <input type="text" id="nameInput2">
+        </form>
+        <button onClick="update2()" class="setButton" id="b2">SET</button>
+      </div>
+     <button  onClick="magicHappens()" id="compute">CALCULATE</button>
+     <p id="resultLabel" hidden></p>
+   </div>
+   <script>
+function update1(){
+  var element = document.getElementById("nameInput1");
+  var content = element.value;
+  document.getElementById("person1").innerHTML = content;
+  document.getElementById("nameInput1").value = "";
+}
+function update2(){
+  var element = document.getElementById("nameInput2");
+  var content = element.value;
+  document.getElementById("person2").innerHTML = content;
+  document.getElementById("nameInput2").value = "";
+}
+function compute(){
+  var name1 = document.getElementById("person1").innerHTML;
+  var name2 = document.getElementById("person2").innerHTML;
+  var num1 = 0;
+  var num2 = 0;
+  for (var i = 0; i < name1.length; i++){
+    num1 = num1 + name1.charCodeAt(i);
+  }
+  for (var j = 0; j < name2.length; j++){
+    num2 = num2 + name2.charCodeAt(j);
+  }
+  var result = (num1 * num2 * 273);
+  var strRes = result.toString();
+  
+  return strRes.substring(0, 2)+"%";
+}
+/* make visible, make animation, use the compute method, display the right result, unselect button and remove animated class*/
+function magicHappens(){
+  var element = document.getElementById("resultLabel");
+  element.innerHTML = "";
+  element.style.display = "block";
+  element.classList.toggle("animated");
+  setTimeout('display()',3005);
+}
+function display(){
+  var element = document.getElementById("resultLabel");
+  element.innerHTML = compute();
+  element.classList.toggle("animated");
+  document.getElementById("compute").blur();
+}
+</script>
+
+ </body>
+  
+</html>
